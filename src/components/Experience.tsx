@@ -18,18 +18,9 @@ export default function Experience() {
             2024.12.30 – 2025.06.26
           </p>
           <ul className="list-disc list-inside mt-3 text-gray-700 space-y-1 2xl:text-2xl">
-            <li>
-              Rolling: 온라인 롤링페이퍼 서비스, 리스트/캐러셀/모바일
-              scroll-snap 구현, Skeleton UI 적용
-            </li>
-            <li>
-              Winedoojan: 와인 추천/공유 서비스, 이미지 최적화 및 상호작용 기능
-              구현
-            </li>
-            <li>
-              Reser On Do: 체험 예약 플랫폼, 페이지 상태 관리 및 컴포넌트
-              재사용성 최적화
-            </li>
+            <li>React, Next.js 기반의 웹 서비스 개발 역량 습득</li>
+            <li>컴포넌트 재사용성, 성능 최적화, UI/UX 설계 경험</li>
+            <li>Git/GitHub 협업, 배포 경험</li>
           </ul>
         </div>
 
