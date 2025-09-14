@@ -73,7 +73,9 @@ export default async function ProjectDetail({ params }: Props) {
         </div>
 
         <div>
-          <h2 className="text-xl font-semibold">어떻게 구현했는가</h2>
+          <h2 className="text-xl font-semibold">
+            문제 해결을 위해 어떤 Action을 취했는가
+          </h2>
           <ul className="mt-2 list-disc pl-6 leading-7">
             {project.description.implementation.map((item, i) => (
               <li key={i}>{item}</li>
@@ -119,6 +121,20 @@ export default async function ProjectDetail({ params }: Props) {
             ))}
           </ul>
         </div>
+        {project.links?.retrospective && (
+          <div>
+            <h2 className="text-xl font-semibold">회고</h2>
+            <a
+              href={project.links.retrospective}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-2 inline-block
+            text-blue-600 underline"
+            >
+              회고 글 보러가기
+            </a>
+          </div>
+        )}
       </section>
     </main>
   );
@@ -140,6 +156,7 @@ type Project = {
   links?: {
     github?: string;
     deployed?: string;
+    retrospective?: string;
     extra?: { label: string; href: string }[];
   };
 };
@@ -149,96 +166,125 @@ const data: Record<string, Project> = {
     title: "Rolling",
     skills: ["HTML", "CSS", "JavaScript", "React", "ESLint", "Prettier"],
     description: {
-      problem:
-        "리액트 숙련도를 높이고 팀원들이 서로 익명으로 감사·응원의 메시지를 주고받을 수 있는 재미있는 서비스를 만들어보자는 아이디어에서 시작했습니다.\n개발 도중 다양한 디바이스 환경에서 캐러셀과 스크롤 UX가 끊기거나 어색하게 보이는 문제가 발생했습니다.",
+      problem: `리액트 숙련도를 높이기 위해 팀원들이 서로 익명으로 편지를 주고받을 수 있는 서비스를 만들어보자는 아이디어에서 시작했습니다.
+        \n 개발 도중 다음과 같은 문제에 직면했습니다.
+        - 기존 카드를 넘길 때 기본 스크롤로 인한 부자연스러운 움직임
+        - 로딩 구간에서의 레이아웃 쉬프트 및 사용자 피드백 부족
+        - 여러 화면에서 공통으로 사용되는 UI 컴포넌트의 부재
+        `,
       implementation: [
-        "GPU 가속 기반 transform으로 부드러운 양방향 캐러셀 구현",
-        "모바일에 최적화된 CSS scroll-snap 적용으로 카드 단위 자연스러운 정렬",
-        "스켈레톤 UI와 SVG 로딩 스피너로 로딩 구간의 시각적 피드백 제공",
-        "ToggleButton / Dropdown / Modal / Options 등 공통 컴포넌트 설계 및 구현",
+        "PC 환경에서는 transform으로 양방향 캐러셀을, 태블릿 / 모바일에서는 CSS scroll-snap 적용으로 스크롤 시 카드 단위로 자연스러운 정렬이 되도록 구현했습니다.",
+        "로딩 시 스켈레톤으로 레이아웃을 잡아 CLS를 방지하고, 카드 단위에는 로딩 스피너를 추가해 사용자 피드백 제공하였습니다.",
+        "ToggleButton / Dropdown / Modal / Options 등 공통 컴포넌트 설계 및 구현했습니다.",
       ],
       results: [
-        "모바일 및 소형 화면에서 스크롤과 캐러셀 동작 안정성 개선",
         "로딩 구간의 레이아웃 쉬프트 최소화로 사용성 향상",
         "공통 컴포넌트 도입으로 화면 추가/변경 시 개발·수정 비용 감소",
       ],
       learnings: [
-        "반응형 UI 설계와 렌더링 퍼포먼스 고려의 중요성",
-        "재사용 가능한 컴포넌트 설계가 유지보수성에 미치는 영향",
-        "로딩 전략(스켈레톤/스피너)이 사용자 인지에 미치는 효과",
+        "리액트를 다루는 데 있어 컴포넌트 재사용성과 유지보수성의 중요성을 깨달았습니다.",
+        "로딩 시 스켈레톤/스피너의 중요성을 체감했습니다.",
+        "코드로 기능 구현 시, 왜 이렇게 구현해야하는지 고민이 필요한 이유를 깨달았습니다.",
       ],
-      role: `공통 컴포넌트(ToggleButton, Dropdown, Modal, Options)와 리스트 페이지(/list)를 담당했습니다.
-특히 양방향 캐러셀, CSS scroll-snap, 스켈레톤 UI/SVG 로딩 스피너를 직접 구현했습니다.`,
+      role: `공통 컴포넌트(ToggleButton, Dropdown, Modal, Options), 리스트 페이지(/list), 404 페이지(/404)
+      양방향 캐러셀, CSS scroll-snap, 로딩 스피너 적용`,
     },
     hero: "/rolling-cover.png",
     links: {
       github: "https://github.com/cozy-ito/rolling-paper",
       deployed: "https://rolling-paper-five.vercel.app/",
+      retrospective: "https://kwon-jin2-development.tistory.com/31",
     },
   },
+
   winedoojan: {
     title: "WineDooJan",
-    skills: ["Next.js", "Tailwind CSS", "Zustand", "TypeScript"],
+    skills: ["Next.js", "Tailwind CSS", "TypeScript"],
     description: {
-      problem:
-        "와인 리뷰/평가 데이터를 빠르게 확인하고 상호작용해야 하지만, 리뷰 반영 지연과 좋아요(하트) 인터랙션의 응답성이 떨어질 수 있는 문제가 있었습니다.",
+      problem: `국내에 와인에 대한 리뷰를 쉽게 볼 수 있는 플랫폼이 부족하다는 점에 착안해, 
+        와인을 처음 접하는 사람도 다른 사람들의 평가를 참고할 수 있는 서비스가 있으면 좋겠다는 아이디어에서 시작했습니다.
+        \n 개발 도중 다음과 같은 문제에 직면했습니다.
+        - 리뷰 작성/수정 후 최신 데이터가 보이지 않는 문제
+        - 좋아요(하트) 클릭 시 서버 응답 지연으로 인한 문제 발생 우려
+        - 리뷰가 많아질수록 탐색이 어려워지는 문제
+        - API 예외 상황에 대한 대응 미흡
+        `,
       implementation: [
-        "와인 상세 페이지를 중심으로 세분화된 컴포넌트 구조 설계(상세 카드/리뷰 목록/평점 컴포넌트)",
-        "좋아요(하트)에 Optimistic UI 적용(상태 기반)",
-        "리뷰 작성·수정 후 최신 데이터가 보이지 않는 문제를 refetch 호출 구조로 해결",
-        "조건별 리뷰 정렬/필터(최신순/높은 별점/낮은 별점) 제공",
-        "ErrorBoundary로 API 예외 대응, Suspense 기반 로딩 스켈레톤 도입",
+        `리뷰 작성·수정 후 최신 데이터가 보이지 않는 문제가 발생했고, 
+        문제 발생 원인을 Tanstack query를 사용하지 않고 useState만으로 상태관리를 하였기에 
+        백엔드에는 반영됐지만 프론트에서는 즉시 반영되지 않고 새로고침을 해야지 데이터가 최신화 된다고 판단했습니다. 
+        당시에는 전체 데이터 일관성을 서버 응답 기준으로 보장하는 것이 우선이라고 생각해, 간단하게 데이터를 한 번 더 요청하는 refetch 호출로 문제를 해결했습니다.`,
+        "댓글에 좋아요 기능이 서버 응답 속도에 따라 반영되어서 UX가 좋지 않았습니다. 이를 해결하기 위해 좋아요(하트)에 Optimistic UI 적용을 해야겠다고 판단했고 Tanstack Query를 사용하지 않아 직접 상태 기반으로 구현했습니다.",
+        "댓글이 많을 경우 원하는 댓글을 찾기 힘들어졌습니다. 이를 해결하기 위해 조건별 리뷰 정렬/필터(최신순/높은 별점/낮은 별점) 기능을 구현했습니다.",
+        "API 요청이 실패할 경우 사용자 경험이 저하되는 문제를 해결하기 위해 React의 ErrorBoundary를 활용하여 예외 상황에 대한 방어적 UI를 제공했습니다.",
       ],
       results: [
-        "리뷰 작성/수정/삭제/좋아요 기능의 반응성 및 안정성 확보",
-        "에러 발생 시 사용자 경험 저하를 최소화하는 방어적 UI 제공",
-        "필터/정렬로 탐색 효율 개선",
+        "에러 발생 시 ErrorBoundary로 부분 오류만 표시해 전체 서비스 중단 없이 안정성 유지",
+        "리뷰 수가 많아질수록 탐색이 어려웠던 문제를 정렬·필터 기능으로 해결하여 탐색 효율 개선",
       ],
       learnings: [
-        "상태 관리 전략(직접 구현 vs 라이브러리)의 선택 기준 정립",
-        "Optimistic UI가 사용자 체감 속도에 미치는 영향",
-        "발표/문서에서 기능 중심 vs 감성 중심 구성의 트레이드오프 인식",
+        "당시엔 TanStack Query를 쓰지 않아 refetch를 직접 호출했는데, 돌이켜보면 부모 컴포넌트(WineDetail)가 리뷰 리스트를 상태로 갖고 있고 자식 모달에서 콜백으로 갱신했다면 useState만으로도 최신화를 보장할 수 있었습니다.",
+        "Optimistic UI가 사용자 경험에 미치는 긍정적인 영향과 상태 기반으로 직접 구현해봤습니다.",
+        "ErrorBoundary를 활용한 방어적 UI 제공의 중요하다는 것을 깨달았습니다.",
       ],
-      role: `상세 페이지(/wines/:id)를 전담하여 리뷰 CRUD, 좋아요(Optimistic UI), 리뷰 정렬/필터, ErrorBoundary 기반 예외 처리, Suspense 로딩 스켈레톤 등을 구현했습니다.`,
+      role: `상세 페이지(/wines/:id)를 전담하여 리뷰 CRUD, 좋아요(Optimistic UI), 리뷰 정렬/필터, ErrorBoundary 기반 예외 처리, 로딩 스켈레톤 등을 구현했습니다.`,
     },
     hero: "/wine-cover.png",
     links: {
       github: "https://github.com/FE14-Part3-Team2/winedoojan",
       deployed: "https://winedoojan-project.vercel.app/",
+      retrospective: "https://kwon-jin2-development.tistory.com/32",
     },
   },
+
   "reser-on-do": {
     title: "Reser On Do",
     skills: [
       "React",
       "TypeScript",
       "React Query",
-      "Zustand",
       "React Hook Form",
       "Zod",
       "카카오 우편검색 SDK",
     ],
     description: {
-      problem:
-        "대용량 이미지 업로드로 인해 페이지 로딩이 지연되고, 입력 중 브라우저 뒤로 가기 시 데이터 유실 가능성, 주소 입력 오타로 인한 사용성 저하 문제가 있었습니다.",
+      problem: `이미 여기어때, 야놀자 같은 대형 플랫폼이 존재하지만, 실제 서비스 맥락에서 이미지 최적화, 무한 스크롤, 폼 검증, 주소 검색 같은 실무적 문제들을 직접 경험, 해결해보기 위해 체험 플랫폼을 주제로 삼았습니다.
+        \n 개발 도중 다음과 같은 문제에 직면했습니다.
+        - 폼 검증 시 로직이 분산되어 상태관리와 유효성 검증을 동시에 처리하기 어려워지는 문제
+        - 등록된 체험 데이터가 많을수록 데이터를 가져오는 시간이 길어지는 문제
+        - 주소 입력 시 오타·잘못된 주소 입력으로 인한 문제 발생 우려
+        - 체험 이미지 용량이 커서 페이지 로딩 속도가 느려지는 문제
+        - 사용자가 입력 중인 상태에서 실수로 뒤로 가기/새로고침 시 입력 데이터 유실 문제
+        `,
       implementation: [
-        "canvas 기반 resizeImage 함수 구현으로 이미지 크기 리사이즈 후 .webp 변환(품질 0.7)",
-        "beforeunload/route change 감지 시 경고 모달로 입력 데이터 유실 방지",
-        "React Hook Form + Zod로 스키마 기반 폼 검증 및 최소 리렌더링 구조",
-        "Intersection Observer API로 무한 스크롤 구현(탐색 성능 개선)",
-        "Card(Main/MyExperience/Reservation), StateBadge, SideNavigation 등 공통 컴포넌트 설계",
-        "카카오 주소 검색 SDK 연동으로 오타·잘못된 주소 입력 사전 방지",
+        `폼 검증 시 상태와 유효성 로직이 컴포넌트 곳곳에 분산되어 유지보수가 어렵다고 판단했습니다. 
+        기존에는 제어 컴포넌트 방식으로 입력값을 모두 useState로 관리했기 때문에, 입력할 때마다 리렌더링이 발생하고 상태·검증 로직이 뒤섞이는 문제가 있었습니다. 
+        이를 해결하기 위해 비제어 컴포넌트 기반의 React Hook Form을 도입하여 최소 리렌더링 구조로 입력 상태를 일관되게 관리했고, 
+        검증은 Zod 스키마를 통해 단일화하여 폼 검증의 안정성과 확장성을 높였습니다.`,
+        `체험 데이터가 많아질수록 한 번에 모든 데이터를 불러오면 초기 로딩 시간이 길어지는 문제가 있었습니다. \
+        이를 개선하기 위해 Intersection Observer API를 활용해 무한 스크롤을 구현하여, 
+        필요한 시점에만 데이터를 점진적으로 불러오도록 하여 로딩 성능과 탐색 경험을 동시에 개선했습니다.`,
+        `주소 입력 시 오타나 잘못된 주소 입력으로 인한 문제를 해결하기 위해 카카오 우편검색 SDK를 도입하여,
+        사용자가 주소를 쉽게 검색하고 선택할 수 있도록 하여 정확성을 높였습니다.`,
+        `체험 이미지 용량이 평균 2MB 이상으로 페이지 로딩 속도를 크게 저하시켰습니다. 
+        이를 개선하기 위해 canvas 기반 resizeImage 함수를 구현하여 클라이언트에서 이미지를 리사이즈하고,
+        WebP 포맷으로 변환해 용량을 줄여 LCP와 Speed Index를 크게 개선했습니다.`,
+        `사용자가 입력 중인 상태에서 실수로 뒤로 가기/새로고침을 시도하면 입력 데이터가 유실되는 문제가 있었습니다. 
+        이를 방지하기 위해 뒤로가기 이벤트를 감지하여 경고 모달을 띄우고, 사용자가 의도적으로 행동을 확인하도록 하여 
+        데이터 유실로 인한 사용성 저하를 예방했습니다.`,
       ],
       results: [
-        "이미지 용량 3.2MB → 47.5KB",
-        "LCP 25s → 5.2s (약 80% 개선)",
-        "Speed Index 13.3s → 5.5s (약 59% 개선)",
-        "입력 중 뒤로 가기 시 데이터 유실 방지로 사용성 개선",
+        "이미지 평균 용량 3.2MB → 47.5KB, LCP 25s → 5.2s(80%개선), Speed Index 13.3s → 5.5s(59%개선)로 초기 로딩 체감 개선",
+        "Intersection Observer 기반 무한 스크롤로 스크롤만으로 연속 탐색이 가능해지고, 초기 페이로드를 줄여 첫 진입 로딩 부담을 완화",
+        "카카오 주소 검색 SDK로 주소 오입력 문제를 차단하여 입력 정확성 강화",
+        "React Hook Form + Zod 도입으로 폼 검증 일관성과 안정성 확보, 유지보수성과 사용자 경험 개선",
+        "뒤로가기 경고 모달로 입력 데이터 유실을 방지하여 사용자 편의성 향상",
       ],
       learnings: [
-        "데이터 기반 성능 최적화(측정→원인 분석→해결)의 반복 사이클 확립",
-        "예방적 UX 설계가 사용자 이탈을 줄이는 데 미치는 효과",
-        "단일 책임 원칙(SRP)을 반영한 컴포넌트 분리가 확장성에 주는 이점",
+        "제어 컴포넌트 기반 상태관리의 한계를 체감하고, React Hook Form + Zod로 최소 리렌더링과 검증 단일화를 적용하면서 비제어 컴포넌트 설계의 장점을 학습했습니다.",
+        "Intersection Observer를 단순 스크롤 탐색 개선뿐 아니라 초기 페이로드 축소와 성능 최적화 관점에서 활용할 수 있다는 점을 배웠습니다.",
+        "Canvas 기반 이미지 리사이즈와 WebP 변환을 통해 브라우저 렌더링 성능과 LCP 개선에 직결되는 최적화 경험을 쌓았습니다.",
+        "카카오 주소 검색 SDK와 뒤로가기 경고 모달 같은 예방적 UX 설계의 중요성을 배웠습니다.",
       ],
       role: `공통 컴포넌트(<a href="https://github.com/FE14-Part4-Team5/reser-on-do/wiki/Card" target="_blank" rel="noopener noreferrer">Card</a>, <a href="https://github.com/FE14-Part4-Team5/reser-on-do/wiki/StateBadge" target="_blank" rel="noopener noreferrer">StateBadge</a>, <a href="https://github.com/FE14-Part4-Team5/reser-on-do/wiki/SideNavigation" target="_blank" rel="noopener noreferrer">SideNavigation</a> 가이드)와 내 체험 관리(/my-experiences), 내 체험 등록(/add-experiences), 내 체험 수정(/edit-experiences/:id)를 담당했습니다.
 Intersection Observer로 무한 스크롤, React Hook Form + Zod 기반 폼 검증, 카카오 주소 검색 API 연동, canvas 기반 <a href="https://github.com/FE14-Part4-Team5/reser-on-do/wiki/%EC%9D%B4%EB%AF%B8%EC%A7%80%20%ED%81%AC%EA%B8%B0%EB%A5%BC%20%EC%A4%84%EC%9D%B4%EA%B3%A0%20%EC%8B%B6%EC%96%B4%EC%9A%94" target="_blank" rel="noopener noreferrer">이미지 최적화(리사이즈 · WebP 변환)</a>을 구현했습니다.
@@ -248,6 +294,7 @@ Intersection Observer로 무한 스크롤, React Hook Form + Zod 기반 폼 검�
     links: {
       github: "https://github.com/FE14-Part4-Team5/reser-on-do",
       deployed: "https://team5-reser-on-do-cuq1.vercel.app/",
+      retrospective: "https://kwon-jin2-development.tistory.com/33",
     },
   },
 };
