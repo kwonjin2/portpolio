@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { data } from "@/data/projects";
 
 export default async function ProjectDetail({ params }: Props) {
@@ -13,9 +14,11 @@ export default async function ProjectDetail({ params }: Props) {
       <h1 className="text-3xl md:text-4xl font-extrabold">{project.title}</h1>
 
       {project.hero && (
-        <img
+        <Image
           src={project.hero}
           alt={`${project.title} hero`}
+          width={1200}
+          height={630}
           className="mt-6 w-full rounded-lg border border-black/10"
         />
       )}

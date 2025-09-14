@@ -18,9 +18,10 @@ export default function SubHeader() {
           <Image
             src="/profile.jpeg"
             alt="profile-image"
-            fill
+            width={32}
+            height={32}
             className="rounded-[100px]"
-          ></Image>
+          />
         </div>
         <div className="font-bold text-[#1F2937] text-[20px] md:text-[24px]">
           kwonjin
@@ -60,8 +61,9 @@ export default function SubHeader() {
         <Image
           src={hovered ? "/contact-hover.png" : "/contact.png"}
           alt="contact-image"
-          fill
-        ></Image>
+          width={200}
+          height={80}
+        />
       </a>
     </div>
   );
