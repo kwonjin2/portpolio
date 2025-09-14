@@ -101,7 +101,7 @@ export default async function ProjectDetail({ params }: Props) {
         </div>
 
         <div>
-          <h2 className="text-xl font-semibold">성과 (수치화)</h2>
+          <h2 className="text-xl font-semibold">성과</h2>
           <ul
             className={`mt-2 list-disc pl-6 leading-7 ${
               slug === "reser-on-do"

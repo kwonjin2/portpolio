@@ -1,18 +1,20 @@
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 export default function About() {
   return (
     <section
       id="about"
-      className="min-h-screen pt-[100px] flex flex-col items-center justify-center px-6 border-b border-gray-300"
+      className="min-h-screen flex flex-col items-center justify-center px-6 border-b border-gray-300"
     >
-      <div className="relative w-25 h-25 md:w-30 md:h-30 lg:w-40 lg:h-40 2xl:w-70 2xl:h-70 rounded-full overflow-hidden ring-4 ring-slate-600">
-        <Image src="/profile.jpeg" alt="profile" fill />
-      </div>
-
-      <div className="mt-8 text-[#1F2937] text-[25px] md:text-[30px] lg:text-[35px] 2xl:text-[50px] font-extrabold tracking-tight">
-        최권진
-      </div>
+      <motion.div
+        className="relative w-[263px] h-[368px]"
+        initial={{ rotateY: 90, opacity: 0 }}
+        animate={{ rotateY: 0, opacity: 1 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
+        <Image src="/kwonjin-card.png" alt="profile" fill />
+      </motion.div>
 
       <p className="mt-3 text-[15px] md:text-[20px] lg:text-[25px] 2xl:text-[40px] text-slate-400 text-center">
         안녕하세요. 재사용성과 성능을 고려해 React로 웹 서비스를 만들고, <br />
