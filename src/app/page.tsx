@@ -1,15 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import Hero from "@/components/Hero";
-import ProjectList from "@/components/ProjectList";
+import Hero from "../components/Hero";
+import ProjectList from "../components/ProjectList";
 // import Header from "@/components/Header";
-import SubHeader from "@/components/SubHeader";
-import About from "@/components/About";
-import Skills from "@/components/Skills";
-import Experience from "@/components/Experience";
-import Contact from "@/components/Contact";
-import Footer from "@/components/Footer";
+import SubHeader from "../components/SubHeader";
+import About from "../components/About";
+import Skills from "../components/Skills";
+import Experience from "../components/Experience";
+import Contact from "../components/Contact";
+import Footer from "../components/Footer";
 
 const Home = () => {
   const [showHero, setShowHero] = useState(true);
