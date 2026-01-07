@@ -22,7 +22,7 @@ const Home = () => {
       {showHero && <Hero onFinish={() => setShowHero(false)} />}
       {!showHero && (
         <>
-          <Header />
+          {/* <Header /> */}
           <hr className="border-b border-gray-100 w-full" />
           <SubHeader />
           <About />

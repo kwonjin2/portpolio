@@ -13,17 +13,19 @@ export default function About() {
         animate={{ rotateY: 0, opacity: 1 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
-        <Image
-          src="/kwonjin-card.png"
-          alt="profile"
-          fill
-          sizes="(max-width: 768px) 180px,
+        <div className="rounded-4xl">
+          <Image
+            src="/profile.jpeg"
+            alt="profile"
+            fill
+            sizes="(max-width: 768px) 180px,
                  (max-width: 1024px) 220px,
                  (max-width: 1280px) 263px,
                  (max-width: 1536px) 300px,
                  360px"
-          className="object-contain"
-        />
+            className="object-contain"
+          />
+        </div>
       </motion.div>
 
       <p className="mt-3 text-[15px] md:text-[20px] lg:text-[25px] 2xl:text-[40px] text-slate-400 text-center">
