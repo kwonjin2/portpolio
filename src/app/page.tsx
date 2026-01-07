@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Hero from "@/components/Hero";
 import ProjectList from "@/components/ProjectList";
-import Header from "@/components/Header";
+// import Header from "@/components/Header";
 import SubHeader from "@/components/SubHeader";
 import About from "@/components/About";
 import Skills from "@/components/Skills";
