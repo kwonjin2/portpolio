@@ -20,26 +20,25 @@ const Home = () => {
   return (
     <div>
       {showHero && <Hero onFinish={() => setShowHero(false)} />}
-      {!showHero && (
-        <>
-          {/* <Header /> */}
-          <hr className="border-b border-gray-100 w-full" />
-          <SubHeader />
-          <About />
-          <Skills />
-          <Experience />
-          <ProjectList />
-          <Contact />
-          <Footer />
-          <button
-            onClick={scrollToTop}
-            className="w-[40px] fixed bottom-6 right-6 bg-gray-700 hover:bg-gray-600 text-white p-2 rounded-sm shadow-md transition cursor-pointer"
-            aria-label="Back to top"
-          >
-            <span className="text-lg">↑</span>
-          </button>
-        </>
-      )}
+
+      <div style={{ display: showHero ? "none" : "block" }}>
+        {/* <Header /> */}
+        <hr className="border-b border-gray-100 w-full" />
+        <SubHeader />
+        <About isVisible={!showHero} />
+        <Skills />
+        <Experience />
+        <ProjectList />
+        <Contact />
+        <Footer />
+        <button
+          onClick={scrollToTop}
+          className="w-[40px] fixed bottom-6 right-6 bg-gray-700 hover:bg-gray-600 text-white p-2 rounded-sm shadow-md transition cursor-pointer"
+          aria-label="Back to top"
+        >
+          <span className="text-lg">↑</span>
+        </button>
+      </div>
     </div>
   );
 };

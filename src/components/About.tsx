@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 
-export default function About() {
+export default function About({ isVisible }: { isVisible: boolean }) {
   return (
     <section
       id="about"
@@ -10,7 +10,9 @@ export default function About() {
       <motion.div
         className="relative w-[180px] h-[250px] md:w-[220px] md:h-[310px] lg:w-[263px] lg:h-[368px] xl:w-[300px] xl:h-[420px] 2xl:w-[360px] 2xl:h-[500px]"
         initial={{ rotateY: 90, opacity: 0 }}
-        animate={{ rotateY: 0, opacity: 1 }}
+        animate={
+          isVisible ? { rotateY: 0, opacity: 1 } : { rotateY: 90, opacity: 0 }
+        }
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
         <div className="rounded-4xl">
@@ -24,6 +26,7 @@ export default function About() {
                  (max-width: 1536px) 300px,
                  360px"
             className="object-contain"
+            priority
           />
         </div>
       </motion.div>
